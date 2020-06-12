@@ -1,6 +1,6 @@
 {
-  "name": "TODO",
-  "description": "TODO",
+  "name": "shabbos-weather",
+  "description": "Weather display for shabbos",
   "version": "0.0.1",
   "scripts": {
     "dev": "sapper dev",
@@ -14,6 +14,7 @@
   "dependencies": {
     "compression": "^1.7.1",
     "date-fns": "^2.13.0",
+    "gh-pages": "^3.0.0",
     "node-fetch": "^2.6.0",
     "polka": "next",
     "sirv": "^0.4.0"
