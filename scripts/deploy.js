@@ -4,7 +4,7 @@ ghpages.publish(
     '__sapper__/export',
     {
         branch: 'master',
-        repo: 'shabbosweather.git',
+        repo: 'https://github.com/rafistrauss/shabbosweather.git',
         user: {
             name: 'rafistrauss',
             email: 'rafikis75@gmail.com'
