@@ -9,6 +9,7 @@
     "start": "node __sapper__/build",
     "cy:run": "cypress run",
     "cy:open": "cypress open",
+    "clean": "rm -rf ./__sapper__",
     "test": "run-p --race dev cy:run",
     "deploy": "npm run clean && npm run export && node ./scripts/deploy.js"
   },
