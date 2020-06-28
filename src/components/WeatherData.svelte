@@ -14,7 +14,7 @@
     // const url = `https://api.openweathermap.org/data/2.5/weather?zip=${zip}&appid=${apiKey}`
     // const url = `https://api.openweathermap.org/data/2.5/forecast?zip=${zip}&appid=${apiKey}`
 
-
+    console.log('In WeatherData');
 
     async function getWeatherData() {
 
@@ -65,6 +65,7 @@
     <p>Waiting</p>
     {:then weatherData}
     {#if weatherData}
+    
         <CurrentWeather current={weatherData.current} />
         <div class="hourlyData">
             {#each weatherData.hourly as weatherObject}

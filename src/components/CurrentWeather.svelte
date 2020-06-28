@@ -1,6 +1,6 @@
 <script>
     import { getIcon, convertKelvinToFahrenheit } from '../components/utils.svelte';
-    import { formatDistanceToNow } from 'date-fns';
+    import { formatDistanceToNow, lightFormat } from 'date-fns';
 
     export let current;
     const { feels_like: temp, dt: timestamp, weather } = current;
@@ -8,11 +8,17 @@
 
     const myTemp = `${convertKelvinToFahrenheit(temp)} \xB0F`;
 
-    const imgSrc = getIcon(icon)
+    const imgSrc = getIcon(icon);
+
+    const date = new Date();
+    const formattedTime = lightFormat(date, 'h:mm aaa');
 </script>
 
 <!-- <WeatherDisplay temp={temp} timestamp={timestamp} icon={icon} /> -->
 <div>
     <img src="{imgSrc}" alt="" style="vertical-align: middle;">
-    <span style="font-size: 48px;">{myTemp}</span>
+    <span style="font-size: 48px; margin-right: 1em;">{myTemp}</span>
+    <span>
+        {formattedTime}
+    </span>
 </div>

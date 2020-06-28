@@ -3,7 +3,6 @@
     import { getIcon, convertKelvinToFahrenheit } from '../components/utils.svelte';
 
     export let weatherDataInstance;
-    export let isCurrent;
     // export let temp, timestamp, icon;
 
     const { dt: timestamp, temp, feels_like, weather } = weatherDataInstance;
