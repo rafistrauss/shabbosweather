@@ -1,10 +1,10 @@
 {
 	"background_color": "#ffffff",
 	"theme_color": "#333333",
-	"name": "TODO",
-	"short_name": "TODO",
+	"name": "Weather",
+	"short_name": "Shabbos Weather App",
 	"display": "minimal-ui",
-	"start_url": "/shabbosweather",
+	"start_url": "/shabbosweather/",
 	"icons": [
 		{
 			"src": "logo-192.png",
