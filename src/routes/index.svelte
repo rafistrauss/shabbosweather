@@ -48,7 +48,6 @@
 
 <svelte:head>
 	<title>Weather</title>
-	<meta http-equiv="refresh" content="60">
 </svelte:head>
 {#if client}
 	 <div class="grid">

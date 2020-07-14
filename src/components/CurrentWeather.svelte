@@ -4,6 +4,7 @@
 
     export let current;
     const { feels_like: temp, dt: timestamp, weather } = current;
+    console.log(timestamp);
     const { icon } = weather[0];
 
     const myTemp = `${convertKelvinToFahrenheit(temp)} \xB0F`;
@@ -11,7 +12,7 @@
     const imgSrc = getIcon(icon);
 
     const date = new Date();
-    const formattedTime = lightFormat(date, 'h:mm aaa');
+    const formattedTime = lightFormat(timestamp * 1000, 'h:mm aaa');
 </script>
 
 <!-- <WeatherDisplay temp={temp} timestamp={timestamp} icon={icon} /> -->

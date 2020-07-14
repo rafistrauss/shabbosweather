@@ -5,6 +5,21 @@
     import WeatherDisplay from './WeatherDisplay.svelte';
     import CurrentWeather from './CurrentWeather.svelte';
     import DailyWeather from './DailyWeather.svelte';
+    import Encapsulator from './Encapsulator.svelte';
+
+    let cachedWeather = localStorage.getItem('cachedWeather');
+    let cachedCurrent, cachedHourly, cachedDaily;
+
+    let promise;
+
+    if (cachedWeather) {
+        console.debug('In cachedWeather if statement');
+        const cachedWeatherObj = JSON.parse(cachedWeather);
+        cachedCurrent = cachedWeatherObj.current;
+        cachedHourly = cachedWeatherObj.hourly;
+        cachedDaily = cachedWeatherObj.daily;
+    }
+
     if (typeof fetch !== "function") {
         fetch = require('node-fetch');
     }
@@ -14,8 +29,6 @@
     // const url = `https://api.openweathermap.org/data/2.5/weather?zip=${zip}&appid=${apiKey}`
     // const url = `https://api.openweathermap.org/data/2.5/forecast?zip=${zip}&appid=${apiKey}`
 
-    console.log('In WeatherData');
-
     async function getWeatherData() {
 
         if (!(latitude && longitude)) {
@@ -24,13 +37,13 @@
 
         const part = 'minutely';
         const url = `https://api.openweathermap.org/data/2.5/onecall?lat=${latitude}&lon=${longitude}&exclude=${part}&appid=${apiKey}`
+        // const url = `https://example.com`;
 
 
         const res = await fetch(url);
         const json = await res.json();
 
         const { current, daily, hourly } = json;
-        console.log("getWeatherData -> json", json)
 
 
 
@@ -39,7 +52,11 @@
 
         const newDaily = daily.slice(1, 5);
 
-        return { current, daily: newDaily, hourly: newHourly };
+        const weatherObject = { current, daily: newDaily, hourly: newHourly };
+
+        localStorage.setItem('cachedWeather', JSON.stringify(weatherObject));
+
+        return weatherObject;
 
 
         // const { main: { feels_like } } = json;
@@ -49,35 +66,28 @@
 
     }
 
-    let promise = getWeatherData();
+    promise = getWeatherData();
+    setInterval(() => {
+        promise = getWeatherData();
+    }, 1000 * 60 * 5)
+
 </script>
 
-<style>
-    .hourlyData,
-    .dailyData {
-        display: grid;
-        grid-template-columns: repeat(4, 1fr);
-        gap: 24px;
-    }
-</style>
 
 {#await promise}
-    <p>Waiting</p>
+    {#if cachedCurrent}
+        <Encapsulator isCached current={cachedCurrent} hourly={cachedHourly} daily={cachedDaily} />
+    {:else}
+        No cached weather data: waiting
+    {/if}
     {:then weatherData}
-    {#if weatherData}
-    
-        <CurrentWeather current={weatherData.current} />
-        <div class="hourlyData">
-            {#each weatherData.hourly as weatherObject}
-            <WeatherDisplay weatherDataInstance={weatherObject} />
-            {/each}
-        </div>
-        <div class="dailyData">
-            {#each weatherData.daily as weatherObject}
-            <DailyWeather weatherDataInstance={weatherObject} />
-            {/each}
-        </div>
+        {#if weatherData}
+            <Encapsulator current={weatherData.current} hourly={weatherData.hourly} daily={weatherData.daily} />
         {/if}
     {:catch error}
-    <p style="color: red">{error.message}</p>
+        {#if cachedCurrent}
+            <Encapsulator isCached current={cachedCurrent} hourly={cachedHourly} daily={cachedDaily} />
+        {:else}
+            Failed
+        {/if}
 {/await}
