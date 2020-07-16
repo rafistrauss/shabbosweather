@@ -3,7 +3,7 @@
     import { formatDistanceToNow, lightFormat } from 'date-fns';
 
     export let current;
-    const { feels_like: temp, dt: timestamp, weather } = current;
+    const { feels_like: temp, dt: timestamp, weather, humidity } = current;
     console.log(timestamp);
     const { icon } = weather[0];
 
@@ -19,7 +19,7 @@
 <div>
     <img src="{imgSrc}" alt="" style="vertical-align: middle;">
     <span style="font-size: 48px; margin-right: 1em;">{myTemp}</span>
-    <span>
-        {formattedTime}
-    </span>
+    <p style="display: inline-block;">
+        {formattedTime} <br /> Humidity: {humidity}%
+    </p>
 </div>

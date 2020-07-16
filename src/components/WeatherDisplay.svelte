@@ -3,14 +3,12 @@
     import { getIcon, convertKelvinToFahrenheit } from '../components/utils.svelte';
 
     export let weatherDataInstance;
-    // export let temp, timestamp, icon;
 
-    const { dt: timestamp, temp, feels_like, weather } = weatherDataInstance;
+    const { dt: timestamp, temp, feels_like, weather, humidity } = weatherDataInstance;
 
     const { icon } = weather[0];
 
-    // const { main: { feels_like }, weather } = data;
-    // return JSON.stringify(json);
+
     const myTemp = `${convertKelvinToFahrenheit(feels_like)} \xB0F`;
 
     const imgSrc = getIcon(icon)
@@ -19,6 +17,10 @@
 
 <div>
     <img src="{imgSrc}" alt="" style="vertical-align: middle;">
-    <span style="font-size: 24px;">{myTemp}</span>
-    <p>{formatDistanceToNow(new Date(timestamp * 1000), {addSuffix: true})}</p>
+    <span style="font-size: 32px;">{myTemp}</span>
+    <p>
+        {formatDistanceToNow(new Date(timestamp * 1000), {addSuffix: true})}
+        <br />
+        Humidity: {humidity}%
+    </p>
 </div>

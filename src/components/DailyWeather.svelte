@@ -5,7 +5,7 @@
     export let weatherDataInstance;
     // export let temp, timestamp, icon;
 
-    const { dt: timestamp, temp, feels_like, weather } = weatherDataInstance;
+    const { dt: timestamp, temp, feels_like, weather, humidity } = weatherDataInstance;
 
     const { icon } = weather[0];
 
@@ -22,5 +22,9 @@
 <div>
     <img src="{imgSrc}" alt="" style="vertical-align: middle;">
     <span style="font-size: 24px;">{myTemp}</span>
-    <p>{format(new Date(timestamp * 1000), 'EEEE')}</p>
+    <p>
+        {format(new Date(timestamp * 1000), 'EEEE')}
+        <br />
+        Humidity: {humidity}%
+    </p>
 </div>
