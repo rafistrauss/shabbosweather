@@ -14,7 +14,10 @@
     feels_like,
     weather,
     humidity,
+    rain,
   } = weatherDataInstance;
+
+  console.log("rain: ", rain);
 
   const { icon } = weather[0];
 
@@ -34,5 +37,7 @@
     {format(new Date(timestamp * 1000), 'EEEE')}
     <br />
     Humidity: {humidity}%
+    <br />
+    {#if rain}Rain: {Math.round(rain)}%{/if}
   </p>
 </div>
