@@ -13,13 +13,7 @@
     feels_like,
     weather,
     humidity,
-    rain: rainObj,
   } = weatherDataInstance;
-
-  let rain = null;
-  if (rainObj) {
-    rain = rainObj["1h"];
-  }
 
   const { icon } = weather[0];
 
@@ -35,7 +29,5 @@
     {formatDistanceToNow(new Date(timestamp * 1000), { addSuffix: true })}
     <br />
     Humidity: {humidity}%
-    <br />
-    {#if rain}Rain: {Math.round(rain)}%{/if}
   </p>
 </div>
