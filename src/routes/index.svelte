@@ -2,30 +2,22 @@
   import { onMount } from "svelte";
   import WeatherData from "../components/WeatherData.svelte";
   import TempWeatherData from "../components/TempWeatherData.svelte";
+  import { latitude, longitude } from "../components/stores.js";
 
   import { version } from "../../package.json";
 
-  let latitude = null;
-  let longitude = null;
-
-  let client = false;
-  console.debug("Opened index");
   onMount(async () => {
     console.debug("Mounted index");
 
-    client = true;
-
-    latitude = localStorage.getItem("latitude");
-    longitude = localStorage.getItem("longitude");
+    latitude.set(localStorage.getItem("latitude"));
+    longitude.set(localStorage.getItem("longitude"));
 
     function success(position) {
       console.debug("geolocation succcess");
-      latitude = position.coords.latitude;
-      longitude = position.coords.longitude;
-      localStorage.setItem("latitude", latitude);
-      localStorage.setItem("longitude", longitude);
-      console.log("latitude", latitude);
-      console.log("long", longitude);
+      latitude.set(position.coords.latitude);
+      longitude.set(position.coords.longitude);
+      localStorage.setItem("latitude", position.coords.latitude);
+      localStorage.setItem("longitude", position.coords.longitude);
     }
 
     function error(err) {
@@ -46,9 +38,9 @@
 <svelte:head>
   <title>Weather</title>
 </svelte:head>
-{#if client}
+{#if $latitude && $longitude}
   <div class="grid">
-    <WeatherData {latitude} {longitude} />
+    <WeatherData latitude={$latitude} longitude={$longitude} />
   </div>
 {:else}
   <p>SSR Here</p>
