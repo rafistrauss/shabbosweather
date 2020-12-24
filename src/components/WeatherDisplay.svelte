@@ -5,6 +5,9 @@
     convertKelvinToFahrenheit,
   } from "../components/utils.svelte";
 
+  /**
+   * @type {WeatherData}
+   */
   export let weatherDataInstance;
 
   const {
@@ -13,9 +16,12 @@
     feels_like,
     weather,
     humidity,
+    pop,
   } = weatherDataInstance;
 
-  const { icon } = weather[0];
+  const { icon, id } = weather[0];
+
+  const timeOfDay = icon.endsWith("n") ? "night" : "day";
 
   const myTemp = `${convertKelvinToFahrenheit(feels_like)} \xB0F`;
 
@@ -23,11 +29,14 @@
 </script>
 
 <div>
-  <img src={imgSrc} alt="" style="vertical-align: middle;" />
+  <!-- <img src={imgSrc} alt="" style="vertical-align: middle; width: 100px; height: 100px;" /> -->
+  <span class={`wi wi-owm-${timeOfDay}-${id}`} style="font-size: 48px;" />
   <span style="font-size: 32px;">{myTemp}</span>
   <p>
     {formatDistanceToNow(new Date(timestamp * 1000), { addSuffix: true })}
     <br />
     Humidity: {humidity}%
+    <br />
+    Chance of Rain: {pop * 100}%
   </p>
 </div>

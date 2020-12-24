@@ -36,7 +36,7 @@
 {#await promise}
   <p>Waiting</p>
 {:then list}
-  <img src={imgSrc} alt="" />
+  <img src={imgSrc} alt="" style=" width: 100px; height: 100px;" />
   <span style="font-size: 48px;">{display}</span>
 
 {:catch error}

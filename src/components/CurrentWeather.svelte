@@ -5,10 +5,16 @@
   } from "../components/utils.svelte";
   import { formatDistanceToNow, lightFormat } from "date-fns";
 
+  /**
+   * @type {CurrentWeather}
+   */
   export let current;
   const { feels_like: temp, dt: timestamp, weather, humidity } = current;
-  console.log(timestamp);
-  const { icon } = weather[0];
+
+  const { icon, id } = weather[0];
+
+  const timeOfDay = icon.endsWith("n") ? "night" : "day";
+  // console.log("TCL ~ file: CurrentWeather.svelte ~ line 12 ~ weather[0]", weather[0])
 
   const myTemp = `${convertKelvinToFahrenheit(temp)} \xB0F`;
 
@@ -20,7 +26,8 @@
 
 <!-- <WeatherDisplay temp={temp} timestamp={timestamp} icon={icon} /> -->
 <div>
-  <img src={imgSrc} alt="" style="vertical-align: middle;" />
+  <!-- <img src={imgSrc} alt="" style="vertical-align: middle; width: 100px; height: 100px;" /> -->
+  <span class={`wi wi-owm-${timeOfDay}-${id}`} style="font-size: 48px;" />
   <span style="font-size: 48px; margin-right: 1em;">{myTemp}</span>
   <p style="display: inline-block;">
     {formattedTime}
