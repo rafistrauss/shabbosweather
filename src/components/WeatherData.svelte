@@ -2,9 +2,6 @@
   export let latitude;
   export let longitude;
 
-  import WeatherDisplay from "./WeatherDisplay.svelte";
-  import CurrentWeather from "./CurrentWeather.svelte";
-  import DailyWeather from "./DailyWeather.svelte";
   import Encapsulator from "./Encapsulator.svelte";
 
   let cachedWeather = localStorage.getItem("cachedWeather");
@@ -14,7 +11,7 @@
 
   if (cachedWeather) {
     console.debug("In cachedWeather if statement");
-    const cachedWeatherObj = JSON.parse(cachedWeather);
+    let cachedWeatherObj = JSON.parse(cachedWeather);
     cachedCurrent = cachedWeatherObj.current;
     cachedHourly = cachedWeatherObj.hourly;
     cachedDaily = cachedWeatherObj.daily;
@@ -24,7 +21,7 @@
     fetch = require("node-fetch");
   }
 
-  import { apiKey, convertKelvinToFahrenheit, zip } from "./utils.svelte";
+  import { apiKey } from "./utils.svelte";
 
   // const url = `https://api.openweathermap.org/data/2.5/weather?zip=${zip}&appid=${apiKey}`
   // const url = `https://api.openweathermap.org/data/2.5/forecast?zip=${zip}&appid=${apiKey}`
@@ -61,12 +58,16 @@
 
   promise = getWeatherData();
   setInterval(() => {
+    let cachedWeatherObj = JSON.parse(cachedWeather);
+    cachedCurrent = cachedWeatherObj.current;
+    cachedHourly = cachedWeatherObj.hourly;
+    cachedDaily = cachedWeatherObj.daily;
     promise = getWeatherData();
   }, 1000 * 60 * 5);
 </script>
 
 {#await promise}
-  {#if cachedCurrent}
+  {#if cachedWeather}
     <Encapsulator
       isCached
       current={cachedCurrent}
