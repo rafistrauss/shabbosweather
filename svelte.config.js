@@ -1,6 +1,5 @@
 import adapter from '@sveltejs/adapter-static';
 
-
 /** @type {import('@sveltejs/kit').Config} */
 export default {
 	kit: {
@@ -9,6 +8,9 @@ export default {
 			pages: 'build',
 			assets: 'build',
 			fallback: null
-		})
+		}),
+		paths: {
+			base: '/shabbosweather'
+		}
 	}
 };
