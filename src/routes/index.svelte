@@ -19,7 +19,7 @@
 	 */
 	async function getLatLongFromZip(zip) {
 		const response = await fetch(
-			`https://api.geonames.org/postalCodeSearchJSON?postalcode=${zip}&country=us&maxRows=1&username=rafistrauss`
+			`https://secure.geonames.org/postalCodeSearchJSON?postalcode=${zip}&country=us&maxRows=1&username=rafistrauss`
 		);
 		if (response.ok) {
 			return await response.json();
