@@ -25,7 +25,7 @@
 			return await response.json();
 		} else {
 			console.error(`Failed to fetch latLong from zip: ${response.statusText}`);
-      errorMessage = response.statusText;
+			errorMessage = response.statusText;
 			return null;
 		}
 	}
@@ -36,7 +36,7 @@
 	 */
 	async function setLatLongFromZip(zip) {
 		if (zip.match(/\d{5}/)) {
-      clearErrorMessage();
+			clearErrorMessage();
 			let res = await getLatLongFromZip(zip);
 			const { lat, lng } = res.postalCodes[0];
 			setLatLong(lat, lng);
@@ -61,27 +61,26 @@
 		localStorage.setItem('longitude', long);
 	}
 
-  function clearErrorMessage() {
-    errorMessage = null;
-  }
+	function clearErrorMessage() {
+		errorMessage = null;
+	}
 
 	function useGeoLocator() {
-    clearErrorMessage();
-    /**
-     * 
-     * @param {GeolocationPosition} position
-     */
+		clearErrorMessage();
+		/**
+		 *
+		 * @param {GeolocationPosition} position
+		 */
 		function success(position) {
-      
 			setLatLong(position.coords.latitude, position.coords.longitude);
 		}
 
 		/**
-     * 
-     * @param {GeolocationPositionError} err
-     */
-    function error(err) {
-      errorMessage = err.message;
+		 *
+		 * @param {GeolocationPositionError} err
+		 */
+		function error(err) {
+			errorMessage = err.message;
 			console.error(err);
 		}
 
@@ -97,7 +96,7 @@
 </script>
 
 <svelte:head>
-	<title>Weather</title>
+	<title>Weather v{version}</title>
 </svelte:head>
 
 {#if $latitude && $longitude}
@@ -107,16 +106,21 @@
 		<WeatherData latitude={$latitude} longitude={$longitude} />
 	</div>
 {:else}
-<p style="height: 50px; text-align: center; color: #ff0000">
-  {errorMessage ? errorMessage : ''}
-</p>
-<div style="display: flex; justify-content: space-between;">
-
-  <button on:click={useGeoLocator}>Use Current Location</button>
-  <span>or</span>
-	<div>
-    <label for="zip">Enter zip code:</label><input name="zip" type="text" pattern={'[0-9]{5}'} on:keyup={(el) => setLatLongFromZip(el.target.value)} /></div>
-</div>
+	<p style="height: 50px; text-align: center; color: #ff0000">
+		{errorMessage ? errorMessage : ''}
+	</p>
+	<div style="display: flex; justify-content: space-between;">
+		<button on:click={useGeoLocator}>Use Current Location</button>
+		<span>or</span>
+		<div>
+			<label for="zip">Enter zip code:</label><input
+				name="zip"
+				type="text"
+				pattern={'[0-9]{5}'}
+				on:keyup={(el) => setLatLongFromZip(el.target.value)}
+			/>
+		</div>
+	</div>
 {/if}
 <h2>Weather v{version}:</h2>
 
