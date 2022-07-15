@@ -9,9 +9,9 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: Set up node
-        uses: actions/setup-node@v1
+        uses: actions/setup-node@v3
         with:
-          node-version: 15.14.0
+          node-version-file: '.nvmrc'
       - run: npm ci
       - run: npm run build
       - name: Deploy
