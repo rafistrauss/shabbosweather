@@ -7,6 +7,7 @@
 	import WeatherData from '$lib/WeatherData.svelte';
 	import { latitude, longitude } from '$lib/stores.js';
 	import X from '$lib/Icons/x.svelte';
+	import Fullscreen from '$lib/Icons/fullscreen.svelte';
 
 	import { version } from '../../package.json';
 
@@ -102,6 +103,7 @@
 {#if $latitude && $longitude}
 	<div class="grid">
 		<X on:click={clearLatLong} style="position: absolute; right: 1em;" />
+		<Fullscreen />
 
 		<WeatherData latitude={$latitude} longitude={$longitude} />
 	</div>
