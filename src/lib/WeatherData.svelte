@@ -19,13 +19,11 @@
 	}
 
 	if (typeof fetch !== 'function') {
+		// @ts-ignore
 		fetch = require('node-fetch');
 	}
 
 	import { apiKey } from './utils.svelte';
-
-	// const url = `https://api.openweathermap.org/data/2.5/weather?zip=${zip}&appid=${apiKey}`
-	// const url = `https://api.openweathermap.org/data/2.5/forecast?zip=${zip}&appid=${apiKey}`
 
 	async function getWeatherData() {
 		if (!(latitude && longitude)) {
@@ -33,10 +31,10 @@
 		}
 
 		const part = 'minutely';
-		const url = `https://api.openweathermap.org/data/2.5/onecall?lat=${latitude}&lon=${longitude}&exclude=${part}&appid=${apiKey}`;
-		// const url = `https://example.com`;
+		const url = `https://api.openweathermap.org/data/2.5/onecall?lat=${latitude}&lon=${longitude}&exclude=${part}&appid=${apiKey}&units=imperial`;
 
 		const res = await fetch(url);
+		/** @type {one_call_weather_data_response} */
 		const json = await res.json();
 
 		const { current, daily, hourly } = json;
@@ -50,11 +48,6 @@
 		localStorage.setItem('cachedWeather', JSON.stringify(weatherObject));
 
 		return weatherObject;
-
-		// const { main: { feels_like } } = json;
-		// // return json;
-		// // return JSON.stringify(json);
-		// return `${convertKelvinToFahrenheit(feels_like)}\xB0 F`;
 	}
 
 	promise = getWeatherData();
@@ -67,7 +60,7 @@
 
 {#await promise}
 	{#if cachedWeather}
-		<Encapsulator isCached current={cachedCurrent} hourly={cachedHourly} daily={cachedDaily} />
+		<Encapsulator current={cachedCurrent} hourly={cachedHourly} daily={cachedDaily} />
 	{:else}
 		No cached weather data: waiting
 	{/if}
@@ -81,6 +74,6 @@
 	{/if}
 {:catch error}
 	{#if cachedCurrent}
-		<Encapsulator isCached current={cachedCurrent} hourly={cachedHourly} daily={cachedDaily} />
+		<Encapsulator current={cachedCurrent} hourly={cachedHourly} daily={cachedDaily} />
 	{:else}Failed{/if}
 {/await}

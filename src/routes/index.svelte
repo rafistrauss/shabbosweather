@@ -58,7 +58,9 @@
 	function setLatLong(lat, long) {
 		latitude.set(lat);
 		longitude.set(long);
+		// @ts-ignore
 		localStorage.setItem('latitude', lat);
+		// @ts-ignore
 		localStorage.setItem('longitude', long);
 	}
 

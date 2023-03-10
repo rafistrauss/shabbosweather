@@ -1,5 +1,5 @@
 <script>
-  import WeatherDisplay from "./WeatherDisplay.svelte";
+  import HourlyWeather from "./HourlyWeather.svelte";
   import CurrentWeather from "./CurrentWeather.svelte";
   import DailyWeather from "./DailyWeather.svelte";
 
@@ -18,7 +18,7 @@
 <CurrentWeather {current} />
 <div class="hourlyData">
   {#each hourly as weatherDataInstance}
-    <WeatherDisplay {weatherDataInstance} />
+    <HourlyWeather {weatherDataInstance} />
   {/each}
 </div>
 <div class="dailyData">

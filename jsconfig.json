@@ -2,8 +2,18 @@
 	"compilerOptions": {
 		"baseUrl": ".",
 		"paths": {
-			"$lib/*": ["src/lib/*"]
-		}
+			"$lib/*": [
+				"src/lib/*"
+			]
+		},
+		"checkJs": true,
+		"allowJs": true,
+		"resolveJsonModule": true
 	},
-	"include": ["src/**/*.d.ts", "src/**/*.js", "src/**/*.svelte"]
+	"include": [
+		"src/**/*.d.ts",
+		"src/**/*.js",
+		"src/**/*.svelte",
+		"types.js"
+	]
 }
