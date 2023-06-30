@@ -25,6 +25,8 @@
  * @property {number} wind_speed Wind speed. Units – default: metre/sec, metric: metre/sec, imperial: miles/hour
  * @property {number} wind_deg Wind direction, degrees (meteorological)
  * @property {weather[]} weather
+    // Temporarily adding these properties to the current object
+ * @property {number} aqi Air Quality Index. Possible values: 1, 2, 3, 4, 5. Where 1 = Good, 2 = Fair, 3 = Moderate, 4 = Poor, 5 = Very Poor.
  */
 
 /**
