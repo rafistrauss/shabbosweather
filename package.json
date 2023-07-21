@@ -1,23 +1,24 @@
 {
   "name": "shabbos-weather",
   "description": "Weather display for shabbos",
-  "version": "2.3.2",
+  "version": "3.0.0",
   "scripts": {
-    "dev": "svelte-kit dev",
-    "build": "svelte-kit build",
-    "preview": "svelte-kit preview",
+    "dev": "vite dev",
+    "build": "vite build",
+    "preview": "vite preview",
     "lint": "prettier --check --plugin-search-dir=. . && eslint --ignore-path .gitignore .",
     "format": "prettier --write --plugin-search-dir=. ."
   },
   "devDependencies": {
-    "@sveltejs/adapter-static": "^1.0.0-next.9",
-    "@sveltejs/kit": "next",
-    "eslint": "^7.22.0",
+    "@sveltejs/adapter-static": "^2.0.2",
+    "@sveltejs/kit": "^1.22.3",
+    "eslint": "^8.45.0",
     "eslint-config-prettier": "^8.1.0",
-    "eslint-plugin-svelte3": "^3.2.0",
+    "eslint-plugin-svelte": "^2.32.4",
     "prettier": "~2.2.1",
     "prettier-plugin-svelte": "^2.2.0",
-    "svelte": "^3.49.0"
+    "svelte": "^4.1.1",
+    "vite": "^4.4.5"
   },
   "type": "module",
   "dependencies": {

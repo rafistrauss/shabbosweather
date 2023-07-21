@@ -1,7 +1,3 @@
-<script context="module">
-	export const prerender = true;
-</script>
-
 <script>
 	import { onMount } from 'svelte';
 	import WeatherData from '$lib/WeatherData.svelte';

@@ -18,10 +18,10 @@
 		} catch (error) {}
 	}
 
-	if (typeof fetch !== 'function') {
-		// @ts-ignore
-		fetch = require('node-fetch');
-	}
+	// if (typeof fetch !== 'function') {
+	// 	// @ts-ignore
+	// 	fetch = require('node-fetch');
+	// }
 
 	import { openweathermapApiKey, airnow_api_key } from './utils.js';
 
