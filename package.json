@@ -11,7 +11,7 @@
   },
   "packageManager": "pnpm@8.0.0",
   "devDependencies": {
-    "@sveltejs/adapter-static": "^2.0.2",
+    "@sveltejs/adapter-static": "^1.0.6",
     "@sveltejs/kit": "^1.22.3",
     "eslint": "^8.45.0",
     "eslint-config-prettier": "^8.1.0",
