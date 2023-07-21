@@ -1,4 +1,7 @@
 <script>
+	import { aqiObject } from './utils.js';
+
+	/** @type {number} */
 	export let aqi;
 	const airQualityText = {
 		1: 'Good',
@@ -17,19 +20,20 @@
 	};
 
 	const airQualityTextColor = {
-		1: 'whitesmoke',
+		1: '#2a2a2a',
 		2: '#2a2a2a',
 		3: '#2a2a2a',
 		4: 'whitesmoke',
-		5: 'whitesmoke'
+		5: 'whitesmoke',
+		6: 'whitesmoke'
 	};
 </script>
 
 <span
 	id="airQuality"
-	style="color: {airQualityTextColor[aqi]};background-color: {airQualityBadgeColor[aqi]};"
+	style="color: {airQualityTextColor[aqi]};background-color: {aqiObject[aqi].Color};"
 >
-	{airQualityText[aqi]}
+	{aqiObject[aqi].Description}
 </span>
 
 <style>

@@ -10,6 +10,7 @@
  */
 
 /**
+* OpenWeatherMap API response for one call weather data
  * @typedef {object} current
  * @property {number} dt Time of the forecasted data, Unix, UTC
  * @property {number} sunrise
@@ -103,4 +104,37 @@
  * @property {number} night
  * @property {number} eve
  * @property {number} morn
+ */
+
+/**
+
+Data from AirNow API (https://docs.airnowapi.org/)
+
+* @typedef {object} AirNowData
+* @property {string} DateObserved
+* @property {number} HourObserved
+* @property {string} LocalTimeZone
+* @property {string} ReportingArea
+* @property {string} StateCode
+* @property {number} Latitude
+* @property {number} Longitude
+* @property {string} ParameterName
+* @property {number} AQI
+* @property {Category} Category
+*/
+
+/**
+ * @typedef {object} Category
+ * @property {number} Number
+ * @property {string} Name
+ */
+
+// Object for air quality index (AQI) color codes, numbers, and descriptions
+// map of AQI numbers to AQI objects, which contain color codes and descriptions
+// https://docs.airnowapi.org/aq101
+/**
+ * @typedef {object} AQI
+ * @property {number} CategoryNumber
+ * @property {string} Color
+ * @property {string} Description
  */

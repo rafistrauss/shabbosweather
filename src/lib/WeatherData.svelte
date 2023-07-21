@@ -23,28 +23,29 @@
 		fetch = require('node-fetch');
 	}
 
-	import { apiKey } from './utils.svelte';
+	import { openweathermapApiKey, airnow_api_key } from './utils.js';
 
 	async function getWeatherData() {
 		if (!(latitude && longitude)) {
 			return null;
 		}
 
+		// Get air quality from airNow api
+		const airNowUrl = `https://www.airnowapi.org/aq/observation/latLong/current/?format=application/json&latitude=${latitude}&longitude=${longitude}&distance=25&API_KEY=${airnow_api_key}`;
+
+		const airNowRes = await fetch(airNowUrl);
+		/** @type {import('types').AirNowData[]} */
+		const airNowJson = await airNowRes.json();
+
+		let airQualityCategory = 1;
+		for (const airQuality of airNowJson) {
+			if (airQuality.Category.Number > airQualityCategory) {
+				airQualityCategory = airQuality.Category.Number;
+			}
+		}
+
 		const part = 'minutely';
-		const url = `https://api.openweathermap.org/data/2.5/onecall?lat=${latitude}&lon=${longitude}&exclude=${part}&appid=${apiKey}&units=imperial`;
-
-		const airPollutionUrl = `https://api.openweathermap.org/data/2.5/air_pollution?lat=${latitude}&lon=${longitude}&appid=${apiKey}`;
-
-		const airPollutionRes = await fetch(airPollutionUrl);
-		const airPollutionJson = await airPollutionRes.json();
-
-		const { list } = airPollutionJson;
-
-		const airQuality = list[0].main.aqi;
-
-		//  Air Quality Index. Possible values: 1, 2, 3, 4, 5. Where 1 = Good, 2 = Fair, 3 = Moderate, 4 = Poor, 5 = Very Poor.
-
-		console.log(airPollutionJson);
+		const url = `https://api.openweathermap.org/data/2.5/onecall?lat=${latitude}&lon=${longitude}&exclude=${part}&appid=${openweathermapApiKey}&units=imperial`;
 
 		const res = await fetch(url);
 		/** @type {one_call_weather_data_response} */
@@ -52,7 +53,7 @@
 
 		const { current, daily, hourly } = json;
 
-		current.aqi = airQuality;
+		current.aqi = airQualityCategory;
 
 		const newHourly = hourly.slice(2, 5);
 
