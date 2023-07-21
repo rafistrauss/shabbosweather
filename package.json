@@ -1,7 +1,7 @@
 {
   "name": "shabbos-weather",
   "description": "Weather display for shabbos",
-  "version": "2.3.1",
+  "version": "2.3.2",
   "scripts": {
     "dev": "svelte-kit dev",
     "build": "svelte-kit build",
