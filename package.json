@@ -12,14 +12,14 @@
   "packageManager": "pnpm@8.0.0",
   "devDependencies": {
     "@sveltejs/adapter-static": "^1.0.6",
-    "@sveltejs/kit": "^1.22.3",
+    "@sveltejs/kit": "^1.15.8",
     "eslint": "^8.45.0",
     "eslint-config-prettier": "^8.1.0",
     "eslint-plugin-svelte": "^2.32.4",
     "prettier": "~2.2.1",
     "prettier-plugin-svelte": "^2.2.0",
-    "svelte": "^4.1.1",
-    "vite": "^4.4.5"
+    "svelte": "^3.58.0",
+    "vite": "^4.3.2"
   },
   "type": "module",
   "dependencies": {
