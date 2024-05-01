@@ -11,21 +11,21 @@
   },
   "packageManager": "pnpm@8.0.0",
   "devDependencies": {
-    "@sveltejs/adapter-static": "^2.0.2",
-    "@sveltejs/kit": "^1.22.3",
-    "eslint": "^8.45.0",
-    "eslint-config-prettier": "^8.1.0",
-    "eslint-plugin-svelte": "^2.32.4",
-    "prettier": "~2.2.1",
-    "prettier-plugin-svelte": "^2.2.0",
-    "svelte": "^4.1.1",
-    "vite": "^4.4.5"
+    "@sveltejs/adapter-static": "^3.0.1",
+    "@sveltejs/kit": "^2.5.7",
+    "eslint": "^9.1.1",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-plugin-svelte": "^2.38.0",
+    "prettier": "~3.2.5",
+    "prettier-plugin-svelte": "^3.2.3",
+    "svelte": "^4.2.15",
+    "vite": "^5.2.10"
   },
   "type": "module",
   "dependencies": {
-    "@fontsource/fira-mono": "^4.2.2",
-    "@lukeed/uuid": "^2.0.0",
-    "cookie": "^0.4.1",
-    "date-fns": "^2.21.1"
+    "@fontsource/fira-mono": "^5.0.13",
+    "@lukeed/uuid": "^2.0.1",
+    "cookie": "^0.6.0",
+    "date-fns": "^3.6.0"
   }
 }

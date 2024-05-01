@@ -45,7 +45,7 @@
 		}
 
 		const part = 'minutely';
-		const url = `https://api.openweathermap.org/data/2.5/onecall?lat=${latitude}&lon=${longitude}&exclude=${part}&appid=${openweathermapApiKey}&units=imperial`;
+		const url = `https://api.openweathermap.org/data/3.0/onecall?lat=${latitude}&lon=${longitude}&exclude=${part}&appid=${openweathermapApiKey}&units=imperial`;
 
 		const res = await fetch(url);
 		/** @type {one_call_weather_data_response} */
@@ -67,11 +67,14 @@
 	}
 
 	promise = getWeatherData();
-	setInterval(() => {
-		console.log('getting weather');
-		cachedWeather = localStorage.getItem('cachedWeather');
-		promise = getWeatherData();
-	}, 1000 * 60 * 5);
+	setInterval(
+		() => {
+			console.log('getting weather');
+			cachedWeather = localStorage.getItem('cachedWeather');
+			promise = getWeatherData();
+		},
+		1000 * 60 * 5
+	);
 </script>
 
 {#await promise}
