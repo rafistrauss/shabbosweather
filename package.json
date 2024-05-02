@@ -1,7 +1,7 @@
 {
   "name": "shabbos-weather",
   "description": "Weather display for shabbos",
-  "version": "3.1.0",
+  "version": "3.2.0",
   "scripts": {
     "dev": "vite dev",
     "build": "vite build",
