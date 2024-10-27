@@ -1,6 +1,6 @@
 export const getIcon = (icon) => `https://openweathermap.org/img/wn/${icon}@2x.png`;
 
-export const openweathermapApiKey = 'dcba0ed759c66085eaeeca7f746953d9';
+export const openweathermapApiKey = '0032b5668e9e5bf37345fe9baad8aff7';
 
 export const zip = '10033';
 
