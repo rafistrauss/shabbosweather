@@ -108,19 +108,22 @@
 
 /**
 
-Data from AirNow API (https://docs.airnowapi.org/)
+Data from AirNow API current observations by lat/long (https://docs.airnowapi.org/)
 
 * @typedef {object} AirNowData
-* @property {string} DateObserved
-* @property {number} HourObserved
-* @property {string} LocalTimeZone
-* @property {string} ReportingArea
-* @property {string} StateCode
-* @property {number} Latitude
-* @property {number} Longitude
-* @property {string} ParameterName
-* @property {number} AQI
-* @property {Category} Category
+* @property {string} dateObserved
+* @property {string} hourObserved
+* @property {string} localTimeZone
+* @property {string} reportingAreaName
+* @property {string} siteID
+* @property {string} siteName
+* @property {string} parameterName
+* @property {number} nowcastAQI
+* @property {string} aqiCategoryName
+* @property {string} reportingAgency
+* @property {string} lookupBehavior
+* @property {string} consideredMonitors
+* @property {string} lookupBoundary
 */
 
 /**
