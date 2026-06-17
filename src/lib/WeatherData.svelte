@@ -31,7 +31,7 @@
 		}
 
 		// Get air quality from airNow api
-		const airNowUrl = `https://www.airnowapi.org/aq/observation/latLong/current/?format=application/json&latitude=${latitude}&longitude=${longitude}&distance=25&API_KEY=${airnow_api_key}`;
+		const airNowUrl = `https://www.airnowapi.org/aq/observation/current/ziplatlong/?format=application/json&latitude=${latitude}&longitude=${longitude}&distance=25&API_KEY=${airnow_api_key}`;
 
 		const airNowRes = await fetch(airNowUrl);
 		/** @type {import('types').AirNowData[]} */
