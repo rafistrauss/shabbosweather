@@ -107,9 +107,8 @@
  */
 
 /**
-
-Data from AirNow API current observations by lat/long (https://docs.airnowapi.org/)
-
+* Data from AirNow API current observations by lat/long (https://docs.airnowapi.org/)
+*
 * @typedef {object} AirNowData
 * @property {string} dateObserved
 * @property {string} hourObserved
