@@ -1,6 +1,6 @@
 <script>
-	export let latitude;
-	export let longitude;
+	export let latitude = null;
+	export let longitude = null;
 
 	import Encapsulator from './Encapsulator.svelte';
 

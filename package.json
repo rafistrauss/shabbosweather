@@ -1,32 +1,29 @@
 {
-  "name": "shabbos-weather",
-  "description": "Weather display for shabbos",
-  "version": "3.2.3",
-  "scripts": {
-    "dev": "vite dev",
-    "build": "vite build",
-    "preview": "vite preview",
-    "lint": "prettier --check --plugin-search-dir=. . && eslint --ignore-path .gitignore .",
-    "format": "prettier --write --plugin-search-dir=. ."
-  },
-  "packageManager": "pnpm@9.0.6",
-  "devDependencies": {
-    "@sveltejs/adapter-static": "^3.0.1",
-    "@sveltejs/kit": "^2.5.7",
-    "@sveltejs/vite-plugin-svelte": "^4.0.0",
-    "eslint": "^9.1.1",
-    "eslint-config-prettier": "^9.1.0",
-    "eslint-plugin-svelte": "^2.38.0",
-    "prettier": "~3.2.5",
-    "prettier-plugin-svelte": "^3.2.3",
-    "svelte": "^5.0.0",
-    "vite": "^5.2.10"
-  },
-  "type": "module",
-  "dependencies": {
-    "@fontsource/fira-mono": "^5.0.13",
-    "@lukeed/uuid": "^2.0.1",
-    "cookie": "^0.6.0",
-    "date-fns": "^3.6.0"
-  }
+	"name": "shabbos-weather",
+	"description": "Weather display for shabbos",
+	"version": "3.2.3",
+	"scripts": {
+		"dev": "vite dev",
+		"build": "vite build",
+		"preview": "vite preview",
+		"lint": "oxfmt --check . && oxlint --deny-warnings .",
+		"format": "oxfmt --write ."
+	},
+	"packageManager": "pnpm@11.7.0",
+	"devDependencies": {
+		"@sveltejs/adapter-static": "^3.0.1",
+		"@sveltejs/kit": "^2.5.7",
+		"@sveltejs/vite-plugin-svelte": "^4.0.0",
+		"oxfmt": "^0.55.0",
+		"oxlint": "^1.70.0",
+		"svelte": "^5.0.0",
+		"vite": "^5.2.10"
+	},
+	"type": "module",
+	"dependencies": {
+		"@fontsource/fira-mono": "^5.0.13",
+		"@lukeed/uuid": "^2.0.1",
+		"cookie": "^0.6.0",
+		"date-fns": "^3.6.0"
+	}
 }

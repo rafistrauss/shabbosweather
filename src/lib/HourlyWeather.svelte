@@ -4,7 +4,7 @@
   /**
    * @type {hourly}
    */
-  export let weatherDataInstance;
+  export let weatherDataInstance = {};
 
   const {
     dt: timestamp,
@@ -15,7 +15,7 @@
     wind_speed
   } = weatherDataInstance;
 
-  const { icon, id } = weather[0];
+  const { icon, id } = weather[0] ?? {};
 
   const timeOfDay = icon.endsWith("n") ? "night" : "day";
 

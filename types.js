@@ -141,3 +141,5 @@ Data from AirNow API current observations by lat/long (https://docs.airnowapi.or
  * @property {string} Color
  * @property {string} Description
  */
+
+export {};
