@@ -2,19 +2,49 @@ on:
   release:
     types:
       - released
+  pull_request:
+    branches:
+      - master
   push:
     branches:
       - fix-gh-pages
 
 jobs:
-  Deploy-Github-Pages:
+  Lint:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
       - name: Set up node
         uses: actions/setup-node@v3
         with:
-          node-version-file: '.nvmrc'
+          node-version-file: ".nvmrc"
+      - uses: pnpm/action-setup@v4.0.0
+        with:
+          run_install: true
+      - run: pnpm run lint
+
+  Format:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Set up node
+        uses: actions/setup-node@v3
+        with:
+          node-version-file: ".nvmrc"
+      - uses: pnpm/action-setup@v4.0.0
+        with:
+          run_install: true
+      - run: pnpm exec oxfmt --check .
+
+  Deploy-Github-Pages:
+    if: github.event_name == 'release' || (github.event_name == 'push' && github.ref == 'refs/heads/fix-gh-pages')
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Set up node
+        uses: actions/setup-node@v3
+        with:
+          node-version-file: ".nvmrc"
       - uses: pnpm/action-setup@v4.0.0
         with:
           run_install: true
