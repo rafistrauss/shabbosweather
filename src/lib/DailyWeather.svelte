@@ -8,9 +8,7 @@
 
 	const { dt: timestamp, feels_like, weather = [], humidity, pop, wind_speed } = weatherDataInstance;
 
-	const { icon, id } = weather[0] ?? {};
-
-	const timeOfDay = icon.endsWith('n') ? 'night' : 'day';
+	const { icon = '', id } = weather[0] ?? {};
 
 	const { day: day_feels_like } = feels_like;
 
