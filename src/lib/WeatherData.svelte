@@ -25,9 +25,10 @@
 
 	import { openweathermapApiKey, airnow_api_key, aqiObject } from './utils.js';
 
-	// Reverse lookup of AirNow `aqiCategoryName` strings to their category number.
+	// Reverse lookup of AirNow `aqiCategoryName` strings to category number,
+	// derived from `aqiObject` to avoid duplicating category definitions.
 	const aqiCategoryNameToNumber = Object.fromEntries(
-		Object.values(aqiObject).map((category) => [category.Description, category.CategoryNumber])
+		Object.values(aqiObject).map(({ Description, CategoryNumber }) => [Description, CategoryNumber])
 	);
 
 	async function getWeatherData() {
