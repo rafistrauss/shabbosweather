@@ -23,17 +23,13 @@
 	// 	fetch = require('node-fetch');
 	// }
 
-	import { openweathermapApiKey, airnow_api_key } from './utils.js';
+	import { openweathermapApiKey, airnow_api_key, aqiObject } from './utils.js';
 
 	// Reverse lookup of AirNow `aqiCategoryName` strings to their category number.
-	const aqiCategoryNameToNumber = {
-		Good: 1,
-		Moderate: 2,
-		'Unhealthy for Sensitive Groups': 3,
-		Unhealthy: 4,
-		'Very Unhealthy': 5,
-		Hazardous: 6
-	};
+	// Derived from `aqiObject` to avoid duplicating the category definitions.
+	const aqiCategoryNameToNumber = Object.fromEntries(
+		Object.values(aqiObject).map(({ Description, CategoryNumber }) => [Description, CategoryNumber])
+	);
 
 	async function getWeatherData() {
 		if (!(latitude && longitude)) {
