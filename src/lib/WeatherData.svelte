@@ -23,7 +23,13 @@
 	// 	fetch = require('node-fetch');
 	// }
 
-	import { openweathermapApiKey, airnow_api_key } from './utils.js';
+	import { openweathermapApiKey, airnow_api_key, aqiObject } from './utils.js';
+
+	// Reverse lookup of AirNow `aqiCategoryName` strings to their category number.
+	// Derived from `aqiObject` to avoid duplicating the category definitions.
+	const aqiCategoryNameToNumber = Object.fromEntries(
+		Object.values(aqiObject).map(({ Description, CategoryNumber }) => [Description, CategoryNumber])
+	);
 
 	async function getWeatherData() {
 		if (!(latitude && longitude)) {
@@ -31,7 +37,7 @@
 		}
 
 		// Get air quality from airNow api
-		const airNowUrl = `https://www.airnowapi.org/aq/observation/latLong/current/?format=application/json&latitude=${latitude}&longitude=${longitude}&distance=25&API_KEY=${airnow_api_key}`;
+		const airNowUrl = `https://www.airnowapi.org/aq/observation/current/ziplatlong/?format=application/json&latitude=${latitude}&longitude=${longitude}&distance=25&API_KEY=${airnow_api_key}`;
 
 		const airNowRes = await fetch(airNowUrl);
 		/** @type {import('types').AirNowData[]} */
@@ -39,8 +45,9 @@
 
 		let airQualityCategory = 1;
 		for (const airQuality of airNowJson) {
-			if (airQuality.Category.Number > airQualityCategory) {
-				airQualityCategory = airQuality.Category.Number;
+			const categoryNumber = aqiCategoryNameToNumber[airQuality.aqiCategoryName] ?? 1;
+			if (categoryNumber > airQualityCategory) {
+				airQualityCategory = categoryNumber;
 			}
 		}
 
