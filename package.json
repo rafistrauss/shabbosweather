@@ -9,6 +9,9 @@
 		"lint": "oxfmt --check . && oxlint --deny-warnings .",
 		"format": "oxfmt --write ."
 	},
+	"engines": {
+		"node": "^20.19.0 || >=22.12.0"
+	},
 	"packageManager": "pnpm@11.7.0",
 	"devDependencies": {
 		"@sveltejs/adapter-static": "^3.0.1",
