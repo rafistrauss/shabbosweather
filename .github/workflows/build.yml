@@ -13,12 +13,12 @@ jobs:
   Lint:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v7
       - name: Set up node
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
-          node-version-file: '.nvmrc'
-      - uses: pnpm/action-setup@v4.0.0
+          node-version-file: ".nvmrc"
+      - uses: pnpm/action-setup@v6
         with:
           run_install: true
       - run: pnpm run lint
@@ -26,12 +26,12 @@ jobs:
   Format:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v7
       - name: Set up node
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
-          node-version-file: '.nvmrc'
-      - uses: pnpm/action-setup@v4.0.0
+          node-version-file: ".nvmrc"
+      - uses: pnpm/action-setup@v6
         with:
           run_install: true
       - run: pnpm exec oxfmt --check .
@@ -40,17 +40,17 @@ jobs:
     if: github.event_name == 'release' || (github.event_name == 'push' && github.ref == 'refs/heads/fix-gh-pages')
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v7
       - name: Set up node
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
-          node-version-file: '.nvmrc'
-      - uses: pnpm/action-setup@v4.0.0
+          node-version-file: ".nvmrc"
+      - uses: pnpm/action-setup@v6
         with:
           run_install: true
       - run: pnpm run build
       - name: Deploy
-        uses: peaceiris/actions-gh-pages@v3
+        uses: peaceiris/actions-gh-pages@v4
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./build
