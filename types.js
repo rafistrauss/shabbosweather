@@ -140,3 +140,5 @@
  * @property {string} Color
  * @property {string} Description
  */
+
+export {};

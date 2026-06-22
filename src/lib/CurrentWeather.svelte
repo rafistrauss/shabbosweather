@@ -5,10 +5,10 @@
 	/**
 	 * @type {current}
 	 */
-	export let current;
-	const { feels_like, dt: timestamp, weather, humidity, wind_speed, aqi } = current;
+	export let current = {};
+	const { feels_like, dt: timestamp, weather = [], humidity, wind_speed, aqi } = current;
 
-	const { icon, id } = weather[0];
+	const { icon = '', id } = weather[0] ?? {};
 
 	const timeOfDay = icon.endsWith('n') ? 'night' : 'day';
 

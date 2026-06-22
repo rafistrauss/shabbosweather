@@ -1,105 +1,117 @@
 <script>
-	export let latitude;
-	export let longitude;
+  export let latitude = null;
+  export let longitude = null;
 
-	import Encapsulator from './Encapsulator.svelte';
+  import Encapsulator from "./Encapsulator.svelte";
 
-	let cachedWeather = localStorage.getItem('cachedWeather');
-	let cachedCurrent, cachedHourly, cachedDaily;
+  let cachedWeather = localStorage.getItem("cachedWeather");
+  let cachedCurrent, cachedHourly, cachedDaily;
 
-	let promise;
+  let promise;
 
-	$: {
-		try {
-			let cachedWeatherObj = JSON.parse(cachedWeather);
-			cachedCurrent = cachedWeatherObj?.current;
-			cachedHourly = cachedWeatherObj?.hourly;
-			cachedDaily = cachedWeatherObj?.daily;
-		} catch (error) {}
-	}
+  $: {
+    try {
+      let cachedWeatherObj = JSON.parse(cachedWeather);
+      cachedCurrent = cachedWeatherObj?.current;
+      cachedHourly = cachedWeatherObj?.hourly;
+      cachedDaily = cachedWeatherObj?.daily;
+    } catch (error) {}
+  }
 
-	// if (typeof fetch !== 'function') {
-	// 	// @ts-ignore
-	// 	fetch = require('node-fetch');
-	// }
+  // if (typeof fetch !== 'function') {
+  // 	// @ts-ignore
+  // 	fetch = require('node-fetch');
+  // }
 
-	import { openweathermapApiKey, airnow_api_key, aqiObject } from './utils.js';
+  import { openweathermapApiKey, airnow_api_key, aqiObject } from "./utils.js";
 
-	// Reverse lookup of AirNow `aqiCategoryName` strings to their category number.
-	// Derived from `aqiObject` to avoid duplicating the category definitions.
-	const aqiCategoryNameToNumber = Object.fromEntries(
-		Object.values(aqiObject).map(({ Description, CategoryNumber }) => [Description, CategoryNumber])
-	);
+  // Reverse lookup of AirNow `aqiCategoryName` strings to category number,
+  // derived from `aqiObject` to avoid duplicating category definitions.
+  const aqiCategoryNameToNumber = Object.fromEntries(
+    Object.values(aqiObject).map(({ Description, CategoryNumber }) => [
+      Description,
+      CategoryNumber,
+    ]),
+  );
 
-	async function getWeatherData() {
-		if (!(latitude && longitude)) {
-			return null;
-		}
+  async function getWeatherData() {
+    if (!(latitude && longitude)) {
+      return null;
+    }
 
-		// Get air quality from airNow api
-		const airNowUrl = `https://www.airnowapi.org/aq/observation/current/ziplatlong/?format=application/json&latitude=${latitude}&longitude=${longitude}&distance=25&API_KEY=${airnow_api_key}`;
+    // Get air quality from airNow api
+    const airNowUrl = `https://www.airnowapi.org/aq/observation/current/ziplatlong/?format=application/json&latitude=${latitude}&longitude=${longitude}&distance=25&API_KEY=${airnow_api_key}`;
 
-		const airNowRes = await fetch(airNowUrl);
-		/** @type {import('types').AirNowData[]} */
-		const airNowJson = await airNowRes.json();
+    const airNowRes = await fetch(airNowUrl);
+    /** @type {import('types').AirNowData[]} */
+    const airNowJson = await airNowRes.json();
 
-		let airQualityCategory = 1;
-		for (const airQuality of airNowJson) {
-			const categoryNumber = aqiCategoryNameToNumber[airQuality.aqiCategoryName] ?? 1;
-			if (categoryNumber > airQualityCategory) {
-				airQualityCategory = categoryNumber;
-			}
-		}
+    let airQualityCategory = 1;
+    for (const airQuality of airNowJson) {
+      const categoryNumber =
+        aqiCategoryNameToNumber[airQuality.aqiCategoryName] ?? 1;
+      if (categoryNumber > airQualityCategory) {
+        airQualityCategory = categoryNumber;
+      }
+    }
 
-		const part = 'minutely';
-		const url = `https://api.openweathermap.org/data/3.0/onecall?lat=${latitude}&lon=${longitude}&exclude=${part}&appid=${openweathermapApiKey}&units=imperial`;
+    const part = "minutely";
+    const url = `https://api.openweathermap.org/data/3.0/onecall?lat=${latitude}&lon=${longitude}&exclude=${part}&appid=${openweathermapApiKey}&units=imperial`;
 
-		const res = await fetch(url);
-		/** @type {one_call_weather_data_response} */
-		const json = await res.json();
+    const res = await fetch(url);
+    /** @type {one_call_weather_data_response} */
+    const json = await res.json();
 
-		const { current, daily, hourly } = json;
+    const { current, daily, hourly } = json;
 
-		current.aqi = airQualityCategory;
+    current.aqi = airQualityCategory;
 
-		const newHourly = hourly.slice(2, 5);
+    const newHourly = hourly.slice(2, 5);
 
-		const newDaily = daily.slice(1, 5);
+    const newDaily = daily.slice(1, 5);
 
-		const weatherObject = { current, daily: newDaily, hourly: newHourly };
+    const weatherObject = { current, daily: newDaily, hourly: newHourly };
 
-		localStorage.setItem('cachedWeather', JSON.stringify(weatherObject));
+    localStorage.setItem("cachedWeather", JSON.stringify(weatherObject));
 
-		return weatherObject;
-	}
+    return weatherObject;
+  }
 
-	promise = getWeatherData();
-	setInterval(
-		() => {
-			console.log('getting weather');
-			cachedWeather = localStorage.getItem('cachedWeather');
-			promise = getWeatherData();
-		},
-		1000 * 60 * 5
-	);
+  promise = getWeatherData();
+  setInterval(
+    () => {
+      console.log("getting weather");
+      cachedWeather = localStorage.getItem("cachedWeather");
+      promise = getWeatherData();
+    },
+    1000 * 60 * 5,
+  );
 </script>
 
 {#await promise}
-	{#if cachedWeather}
-		<Encapsulator current={cachedCurrent} hourly={cachedHourly} daily={cachedDaily} />
-	{:else}
-		No cached weather data: waiting
-	{/if}
+  {#if cachedWeather}
+    <Encapsulator
+      current={cachedCurrent}
+      hourly={cachedHourly}
+      daily={cachedDaily}
+    />
+  {:else}
+    No cached weather data: waiting
+  {/if}
 {:then weatherData}
-	{#if weatherData}
-		<Encapsulator
-			current={weatherData.current}
-			hourly={weatherData.hourly}
-			daily={weatherData.daily}
-		/>
-	{/if}
+  {#if weatherData}
+    <Encapsulator
+      current={weatherData.current}
+      hourly={weatherData.hourly}
+      daily={weatherData.daily}
+    />
+  {/if}
 {:catch error}
-	{#if cachedCurrent}
-		<Encapsulator current={cachedCurrent} hourly={cachedHourly} daily={cachedDaily} />
-	{:else}Failed{/if}
+  {#if cachedCurrent}
+    <Encapsulator
+      current={cachedCurrent}
+      hourly={cachedHourly}
+      daily={cachedDaily}
+    />
+  {:else}Failed{/if}
 {/await}
